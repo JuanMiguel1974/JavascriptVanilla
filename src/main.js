@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 import { router } from '../src/router/routes';
-import { checkUsuario } from './utils/chekUsuario';
+import { isInLE, checkUsuario } from './utils/chekUsuario';
 import { componentes } from './componentes/index.componentes';
 
 window.app = {};
@@ -9,7 +9,7 @@ window.app = {};
 (function autoinvocada() {
     document.addEventListener("DOMContentLoaded", function domLoad() {
 
-        if (checkUsuario()) {
+        if (checkUsuario('user')) {
             window.location.hash = '#/navegacion';
             //document.querySelector("body").prepend(componentes.navegacion());
         } else {

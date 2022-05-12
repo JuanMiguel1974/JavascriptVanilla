@@ -50,9 +50,9 @@ export default () => {
             let estdioNuevo = {
                 nombre: document.querySelector("#nombre").value,
                 aforo: document.querySelector("#aforo").value,
-                imagen: document.querySelector("#imagen").imagen,
-                ciudad: document.querySelector("#ciudad").imagen,
-                pais: document.querySelector("#pais").imagen,
+                imagen: document.querySelector("#imagen").value,
+                ciudad: document.querySelector("#ciudad").value,
+                pais: document.querySelector("#pais").value,
             };
             console.log(estdioNuevo);
 
