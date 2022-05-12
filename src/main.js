@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 import { router } from '../src/router/routes';
-import { checkUsuario } from "./utils/chekUsuario";
-import { menu } from "./componentes/menu.js";
+import { checkUsuario } from './utils/chekUsuario';
+import { componentes } from './componentes/index.componentes';
 
 window.app = {};
 
@@ -10,11 +10,11 @@ window.app = {};
     document.addEventListener("DOMContentLoaded", function domLoad() {
 
         if (checkUsuario()) {
-            window.location.hash = '#/estadios'
-            document.querySelector("body").prepend(navegacion());
+            window.location.hash = '#/navegacion';
+            //document.querySelector("body").prepend(componentes.navegacion());
         } else {
-            document.querySelector("body").prepend(menu());
-            window.location.hash = '#/';
+            document.querySelector("body").prepend(componentes.menu());
+            window.location.hash = '#/'
         }
 
         router(window.location.hash);

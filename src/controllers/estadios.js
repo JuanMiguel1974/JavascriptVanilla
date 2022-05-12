@@ -1,16 +1,8 @@
+import view from '../views/estadios.html'
 export default () => {
-    const estadiosPage = ` 
-    <div id="estadios"></div>
-    <form method="post" enctype=multipart/form-data>
-      <label for="nombre">Nombre</label> <input type="text" id="nombre" name="nombre" />
-      <label for="ciudad">Ciudad</label><input type="text" id="ciudad" name="ciudad" />
-      <label for="imagen">Imagen</label><input type="file" id="imagen" name="imagen" /><br><br>
-      <label for="aforo">Aforo</label><input type="number" id="aforo" name="aforo" /><br><br>
-      <label for="pais">Pais</label><input type="text" id="pais" name="pais" /><br><br>
-      <button id="crear">Crear</button>
-    </form>
-    
-    `;
+
+    const estadiosPage = document.createElement('div');
+    estadiosPage.innerHTML = view;
 
     const url = "https://futbol-7727b-default-rtdb.firebaseio.com/estadios.json";
 
@@ -76,5 +68,5 @@ export default () => {
         });
     });
 
-    return divElement;
+    return estadiosPage;
 }
