@@ -4,31 +4,7 @@ export default () => {
     const estadiosPage = document.createElement('div');
     estadiosPage.innerHTML = view;
 
-    const url = "https://futbol-7727b-default-rtdb.firebaseio.com/estadios.json";
-
-    let estadios = [];
-
-    async function firebaseEstadios() {
-        await fetch(url + ".json")
-            .then((response) => response.json())
-            .then((datos) => {
-                console.log(datos);
-                for (let key in datos) {
-                    datos[key].id = key;
-                    productes.push(datos[key]);
-                }
-                let divEstadios = document.querySelector("#estadios");
-                divEstadios.innerHTML = "";
-                estadios.map((p) => {
-                    let divEstadio = document.createElement("div");
-                    divEstadio.innerHTML = `<h2>${e.nombre}</h2><img src="${e.imagen}"/><p>${e.aforo}</p><p>${e.ciudad}</p><p>${e.pais}</p>`;
-                    divEstadios.append(divEstadio);
-                });
-            });
-    }
-
-    const divElement = document.createElement('div');
-    divElement.innerHTML = estadiosPage;
+    const url = "https://futbol-7727b-default-rtdb.firebaseio.com/estadios";
 
     function encodeImageFileAsURL(element) {
         var file = element.files[0];
@@ -40,33 +16,23 @@ export default () => {
         reader.readAsDataURL(file);
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        firebaseEstadios();
-        document.querySelector("#imagen").addEventListener("change", function() {
-            encodeImageFileAsURL(this);
-        });
-        document.querySelector("#crear").addEventListener("click", function(event) {
-            event.preventDefault();
-            let estdioNuevo = {
-                nombre: document.querySelector("#nombre").value,
-                aforo: document.querySelector("#aforo").value,
-                imagen: document.querySelector("#imagen").value,
-                ciudad: document.querySelector("#ciudad").value,
-                pais: document.querySelector("#pais").value,
-            };
-            console.log(estdioNuevo);
+    estadiosPage.querySelector("#crear").addEventListener("click", function(event) {
+        event.preventDefault();
+        let estdioNuevo = {
+            nombre: estadiosPage.querySelector("#nombre").value,
+            aforo: estadiosPage.querySelector("#aforo").value,
+            imagen: estadiosPage.querySelector("#imagen").value,
+            ciudad: estadiosPage.querySelector("#ciudad").value,
+            pais: estadiosPage.querySelector("#pais").value,
+        };
+        console.log(estdioNuevo);
 
-            fetch(url + ".json", {
-                    method: "post",
-                    headers: { "Content-type": "application/json; charset=UTF-8" },
-                    body: JSON.stringify(estdioNuevo),
-                })
-                .then((response) => response.json())
-                .then((datos) => {
-                    firebaseEstadios();
-                });
-        });
+        fetch(url + ".json", {
+                method: "post",
+                headers: { "Content-type": "application/json; charset=UTF-8" },
+                body: JSON.stringify(estdioNuevo),
+            })
+            .then((response) => response.json())
     });
-
     return estadiosPage;
 }

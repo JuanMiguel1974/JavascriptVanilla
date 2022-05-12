@@ -4,12 +4,6 @@ export default () => {
     const loginPage = document.createElement('div');
     loginPage.innerHTML = view;
 
-    /*   let user = loginPage.querySelector("#user");
-
-      if (localStorage.getItem("idToken")) {
-          user.innerHTML = `Logged: ${localStorage.getItem("email")}`;
-      } */
-
     loginPage
         .querySelector("#formLogin")
         .addEventListener("submit", function(event) {
@@ -33,7 +27,7 @@ export default () => {
                 )
                 .then((response) => {
                     if (response.ok) return response.json();
-                    // else throw Error(response.statusText);
+
                     else {
                         return response.json().then((text) => {
                             console.log(text);
@@ -42,7 +36,6 @@ export default () => {
                     }
                 })
                 .then((datos) => {
-                    //    user.innerHTML = `Login: ${datos.email}`;
 
                     localStorage.setItem("idToken", datos.idToken);
                     localStorage.setItem("email", datos.email);
