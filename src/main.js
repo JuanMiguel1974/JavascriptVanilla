@@ -9,7 +9,7 @@ window.app = {};
 (function autoinvocada() {
     document.addEventListener("DOMContentLoaded", function domLoad() {
 
-        if (checkUsuario('user')) {
+        if (checkUsuario()) {
             window.location.hash = '#/navegacion';
             //document.querySelector("body").prepend(componentes.navegacion());
         } else {
