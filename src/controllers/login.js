@@ -1,6 +1,7 @@
 import view from '../views/login.html'
 
 export default () => {
+
     const loginPage = document.createElement('div');
     loginPage.innerHTML = view;
 
@@ -26,9 +27,11 @@ export default () => {
                     }
                 )
                 .then((response) => {
-                    if (response.ok) return response.json();
+                    if (response.ok) {
 
-                    else {
+                        return response.json();
+
+                    } else {
                         return response.json().then((text) => {
                             console.log(text);
                             throw new Error(text.error.message);

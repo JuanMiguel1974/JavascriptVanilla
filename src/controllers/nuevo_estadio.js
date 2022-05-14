@@ -1,4 +1,4 @@
-import view from '../views/estadios.html'
+import view from '../views/nuevo_estadio.html'
 export default () => {
 
     const estadiosPage = document.createElement('div');

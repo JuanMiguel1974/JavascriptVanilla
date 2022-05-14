@@ -7,5 +7,6 @@ const componentes = {
     menu: menu,
     home: Home,
     navegacion: Navegacion,
+
 };
 export { componentes }

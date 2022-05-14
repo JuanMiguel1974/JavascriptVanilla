@@ -18,11 +18,15 @@ const router = (route) => {
 
             return content.appendChild(pages.registro());
 
-        case '#/estadios':
-            return content.appendChild(pages.estadios());
+        case '#/nuevo_estadio':
+            return content.appendChild(pages.nuevo_estadio());
 
         case '#/navegacion':
             return content.appendChild(componentes.navegacion());
+
+        case '#/logout':
+
+            return content.appendChild(componentes.menu());
     }
 };
 export { router };
