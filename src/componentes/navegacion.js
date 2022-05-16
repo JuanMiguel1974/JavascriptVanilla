@@ -9,7 +9,8 @@ export default () => {
     navPage.querySelector('#logout').addEventListener("click", function(event) {
         event.preventDefault;
         localStorage.clear();
-        document.querySelector("body").prepend(componentes.menu());
+        window.location.reload();
+        window.location.hash = '/#/'
     });
 
     return navPage;

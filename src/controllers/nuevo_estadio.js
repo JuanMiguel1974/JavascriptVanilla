@@ -1,4 +1,7 @@
 import view from '../views/nuevo_estadio.html'
+import { pages } from '../controllers/index.controller'
+import '../css/toast.css'
+import { router } from '../router/routes';
 export default () => {
 
     const estadiosPage = document.createElement('div');
@@ -28,11 +31,15 @@ export default () => {
         console.log(estdioNuevo);
 
         fetch(url + ".json", {
-                method: "post",
-                headers: { "Content-type": "application/json; charset=UTF-8" },
-                body: JSON.stringify(estdioNuevo),
-            })
-            .then((response) => response.json())
+            method: "post",
+            headers: { "Content-type": "application/json; charset=UTF-8" },
+            body: JSON.stringify(estdioNuevo),
+        })
+
+        .then((response) => response.json());
+        pages.toast.init();
+        pages.toast.show('Ingresado nuevo estadio con exito', 'success');
     });
+
     return estadiosPage;
 }

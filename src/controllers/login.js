@@ -1,54 +1,70 @@
 import view from '../views/login.html'
+import { pages } from '../controllers/index.controller'
+import '../css/toast.css'
 
 export default () => {
 
     const loginPage = document.createElement('div');
     loginPage.innerHTML = view;
 
-    loginPage
-        .querySelector("#formLogin")
-        .addEventListener("submit", function(event) {
+    loginPage.querySelector("#login").addEventListener("click", function(event) {
 
-            let datosFormData = new FormData(this);
-            let objecteFormData = Object.fromEntries(datosFormData);
-            objecteFormData.returnSecureToken = true;
-            delete objecteFormData.remember;
-            let datos = JSON.stringify(objecteFormData);
-            console.log(datos);
-            event.preventDefault();
+        loginPage
+            .querySelector("#formLogin")
+            .addEventListener("submit", function(event) {
 
-            fetch(
-                    "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD8hfH8YVdrzF4LkhLi4q5lKhVludOeG_k", {
-                        method: "post",
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8",
-                        },
-                        body: datos,
-                    }
-                )
-                .then((response) => {
-                    if (response.ok) {
+                let datosFormData = new FormData(this);
+                let objecteFormData = Object.fromEntries(datosFormData);
+                objecteFormData.returnSecureToken = true;
+                delete objecteFormData.remember;
+                let datos = JSON.stringify(objecteFormData);
+                console.log(datos);
+                event.preventDefault();
 
-                        return response.json();
+                fetch(
+                        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD8hfH8YVdrzF4LkhLi4q5lKhVludOeG_k", {
+                            method: "post",
+                            headers: {
+                                "Content-type": "application/json; charset=UTF-8",
+                            },
+                            body: datos,
+                        }
+                    )
+                    .then((response) => {
+                        if (response.ok) {
 
-                    } else {
-                        return response.json().then((text) => {
-                            console.log(text);
-                            throw new Error(text.error.message);
-                        });
-                    }
-                })
-                .then((datos) => {
+                            pages.toast.init();
+                            pages.toast.show('Logeado con exito', 'success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
 
-                    localStorage.setItem("idToken", datos.idToken);
-                    localStorage.setItem("email", datos.email);
+                            return response.json();
 
-                    console.log(datos);
-                })
-                .catch((error) => {
-                    console.error("Error;", error);
+                        } else {
+                            pages.toast.init();
+                            pages.toast.show('Compruebe sus datos e intentelo de nuevo', 'error');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                            return response.json().then((text) => {
+                                console.log(text);
+                                throw new Error(text.error.message);
+                            });
+                        }
+                    })
+                    .then((datos) => {
 
-                });
-        });
+                        localStorage.setItem("idToken", datos.idToken);
+                        localStorage.setItem("email", datos.email);
+
+                        console.log(datos);
+                    })
+                    .catch((error) => {
+                        console.error("Error;", error);
+
+                    });
+            });
+    });
     return loginPage;
 };
